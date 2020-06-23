@@ -29,7 +29,6 @@ function* saveCollectionitem(action) {
         }
 
         const res = yield call(fetch, 'v1/collectionitems', options)
-        debugger;
         const collectionitem = yield call([res, "json"])
         yield put(addCollectionitemSuccess(collectionitem))
     } catch (e) {

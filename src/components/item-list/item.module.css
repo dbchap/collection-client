@@ -1,0 +1,8 @@
+.item {
+    padding: 1em;
+}
+
+.itemRemove {
+    float: right;
+    cursor: pointer;
+}

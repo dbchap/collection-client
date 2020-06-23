@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as styles from './form-input.module.css';
 
 const FormInput = ({ handleChange, label, iconLeft, iconRight, ...otherProps }) => {
@@ -18,11 +18,11 @@ const FormInput = ({ handleChange, label, iconLeft, iconRight, ...otherProps }) 
                 />
                 {iconLeft ?
                     <span className="icon is-small is-left">
-                        <i className={`fas fa-${iconRight}`}></i>
+                        <FontAwesomeIcon size="lg" icon={iconLeft} />
                     </span> : null}
                 {iconRight ?
                     <span className="icon is-small is-right">
-                        <i className={`fas fa-${iconRight}`}></i>
+                        <FontAwesomeIcon size="lg" icon={iconRight} />
                     </span> : null}
             </div>
         </div>

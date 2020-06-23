@@ -5,9 +5,9 @@ import * as styles from './form-select.module.css';
 const FormSelect = ({ options, ...otherProps }) => (
     <div className="field">
         <div className="control">
-            <div className="select">
+            <div>
                 <select {...otherProps} className={styles.customInput}>
-                    <option value="-1">CHOOSE COLUMN</option>
+                    <option style={{color:'#aaafb7'}} value="-1">CHOOSE COLUMN</option>
                     {options.map(option=>
                         <option key={option.value} value={option.value}>{option.name}</option>    
                     )}

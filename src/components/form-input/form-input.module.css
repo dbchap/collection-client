@@ -2,4 +2,11 @@
     background-color: #9ba1ab;
     border: 0.2vw solid #fff;
     padding: 1vw;
+    vertical-align: middle;
+    color: #fff;
+    
+}
+
+.customInput::placeholder {
+    color: #d2d5d9;
 }

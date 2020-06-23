@@ -1,13 +1,14 @@
-import React from 'react';
 import 'bulma/css/bulma.css';
-import appStyles from './App.module.css';
-import Title from './components/title/title.component';
-import FormInput from './components/form-input/form-input.component';
-import ItemList from './components/item-list/item-list.component';
+import React from 'react';
 import { connect } from 'react-redux';
-import { addCollectionitem, fetchCollectionitems } from './store/actions/collectionitems';
-import FormSelect from './components/form-select/form-select.component';
+import appStyles from './App.module.css';
 import CustomButton from './components/custom-button/custom-button.component';
+import FormInput from './components/form-input/form-input.component';
+import FormSelect from './components/form-select/form-select.component';
+import ItemList from './components/item-list/item-list.component';
+import Title from './components/title/title.component';
+import { addCollectionitem, fetchCollectionitems } from './store/actions/collectionitems';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 const columns = [0, 1];
@@ -18,17 +19,17 @@ class App extends React.Component {
     this.state = {
       itemName: '',
       selectedColumn: -1,
+      searchTerm: '',
     }
   }
 
   componentDidMount() {
     this.props.fetchCollectionitems();
-    setInterval(() => this.props.fetchCollectionitems(), 5000);
+    setInterval(() => this.props.fetchCollectionitems(), 10000);
   }
 
   handleChange = event => {
     const { value, name } = event.target;
-    console.log("change ", name, value);
     this.setState({
       [name]: value
     });
@@ -62,7 +63,7 @@ class App extends React.Component {
               label="ADD AN ITEM" />
           </div>
           <div className="columns">
-            <div className="column">
+            <div className="column is-3">
               <FormInput
                 name="itemName"
                 type="text"
@@ -73,25 +74,47 @@ class App extends React.Component {
 
               <FormSelect
                 name="selectedColumn"
-                options={columns.map(columnIdx => { return { name: columnIdx, value: columnIdx } })}
+                options={columns.map(columnIdx => { return { name: 'Column ' + (columnIdx + 1), value: columnIdx } })}
                 value={this.state.selectedColumn}
                 onChange={this.handleChange}
               />
 
               <CustomButton
+                style={{ marginTop: '8vw' }}
                 onClick={this.addCollectionitem}>
-                Add Item
+                ADD ITEM
               </CustomButton>
-            </div>
-            {columns.map(columnIdx =>
 
-              <div key={columnIdx} className="column">
-                <ItemList
-                  key={columnIdx}
-                  columnIdx={columnIdx}
-                  items={this.props.collectionitems.filter(item => item.columnIdx === columnIdx)} />
-              </div>)
-            }
+              <div style={{marginTop: '4vw'}}>
+                <div style={{color:'#fff',fontWeight:'bold'}}>
+                  SEARCH AN ITEM
+                </div>
+                <FormInput
+                  name="searchTerm"
+                  type="text"
+                  label="SEARCH"
+                  iconRight={faSearch}
+                  value={this.state.searchTerm}
+                  handleChange={this.handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="column">
+              <div className="columns" style={{ padding: 0, margin: 0, backgroundColor: '#fff' }}>
+                {columns.map(columnIdx =>
+                  <div key={columnIdx} className="column">
+                    <ItemList
+                      key={columnIdx}
+                      columnIdx={columnIdx}
+                      items={this.props.collectionitems.filter(item => 
+                        item.columnIdx === columnIdx
+                          && ( this.state.searchTerm ? item.label.includes(this.state.searchTerm) : true )
+                        )} />
+                  </div>)
+                }
+              </div>
+            </div>
           </div>
         </div>
       </div>

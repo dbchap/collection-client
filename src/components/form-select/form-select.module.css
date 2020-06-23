@@ -2,4 +2,13 @@
     background-color: #9ba1ab;
     border: 0.2vw solid #fff;
     padding: 1vw;
+    color: #fff;
 }
+
+.customInput:first-child {
+    color: #d2d5d9;
+}
+
+.customInput option {
+    color: #fff;
+  }

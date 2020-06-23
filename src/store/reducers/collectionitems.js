@@ -29,7 +29,7 @@ export default function collectionitems(state = COLLECTIONITEMS_DEFAULT_STATE, a
         case ADD_COLLECTIONITEM_SUCCESS:
             return {
                 ...state,
-                items: state.items.concat(action.item),
+                items: [action.item, ...state.items],
                 saving: false
             }
 
