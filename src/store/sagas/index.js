@@ -7,6 +7,7 @@ import {
     addCollectionitemSuccess,
     collectionitemsFailure
 } from '../actions/collectionitems'
+import { FETCH_LOGS, ADD_LOG, loadedLogs, logFailure, addLog } from '../actions/logger'
 
 function* getAllCollectionitems() {
     try {
@@ -18,11 +19,40 @@ function* getAllCollectionitems() {
     }
 }
 
+function* getAllLogs() {
+    try {
+        const res = yield call(fetch, 'v1/logger')
+        const logs = yield res.json()
+        yield put(loadedLogs(logs))
+    } catch (e) {
+        yield put(logFailure(e.message))
+    }
+}
+
+function* saveLog(action) {
+    try {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({ action }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }
+
+        const res = yield call(fetch, 'v1/logger', options)
+        const log = yield call([res, "json"])
+        yield put(addLog(log))
+    } catch (e) {
+        yield put(collectionitemsFailure(e.message))
+    }
+}
+
+
 function* saveCollectionitem(action) {
     try {
         const options = {
             method: 'POST',
-            body: JSON.stringify({columnIdx:action.columnIdx,label:action.name}),
+            body: JSON.stringify({ columnIdx: action.columnIdx, label: action.name }),
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
@@ -49,6 +79,8 @@ function* rootSaga() {
     yield takeLatest(FETCH_COLLECTIONITEMS, getAllCollectionitems)
     yield takeLatest(ADD_COLLECTIONITEM, saveCollectionitem)
     yield takeLatest(DELETE_COLLECTIONITEM, deleteCollectionitem)
+    yield takeLatest(FETCH_LOGS, getAllLogs)
+    yield takeLatest(ADD_LOG, saveLog)
 }
 
 export default rootSaga;
