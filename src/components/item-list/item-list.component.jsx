@@ -10,7 +10,7 @@ class ItemList extends React.Component {
             <div>
                 <Title label={`Column ${columnIdx+1}`} />
                 {this.props.items.map(
-                    item => <Item {...item} />
+                    (item, itemIdx) => <Item itemIdx={itemIdx} key={item._id} {...item} />
                 )}
             </div>
         );

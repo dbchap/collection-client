@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Item = ({itemIdx, ...otherProps}) => {
+const Item = ({label, columnIdx, itemIdx, ...otherProps}) => {
     return (
-        <div>
-            
+        <div style={{backgroundColor:itemIdx %2 === 0 ? 'grey' : 'white'}}>
+            {label}
         </div>
     )
 }
