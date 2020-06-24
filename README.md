@@ -1,8 +1,7 @@
 ### Collection Items Client
 
 To run:
-npm install
-npm run start
+npm install && npm run start
 
 Browser will launch, or visit http://localhost:3000/
 
