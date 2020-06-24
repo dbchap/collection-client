@@ -6,6 +6,7 @@ import appStyles from './App.module.css';
 import { fetchCollectionitems } from './store/actions/collectionitems';
 import { addLog, fetchLogs } from './store/actions/logger';
 import Collections from './pages/collections.component';
+import Logs from './pages/logs.component';
 
 import {
   BrowserRouter as Router,
@@ -48,7 +49,7 @@ class App extends React.Component {
             </nav>
             <Switch>
               <Route path="/logs">
-                <span>These are the logs.</span>
+                <Logs />
               </Route>
               <Route path="/">
                 <Collections />

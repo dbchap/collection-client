@@ -7,7 +7,7 @@ import {
     addCollectionitemSuccess,
     collectionitemsFailure
 } from '../actions/collectionitems'
-import { FETCH_LOGS, ADD_LOG, loadedLogs, logFailure, addLog } from '../actions/logger'
+import { FETCH_LOGS, ADD_LOG, loadedLogs, logFailure, addLogSuccess } from '../actions/logger'
 
 function* getAllCollectionitems() {
     try {
@@ -33,7 +33,7 @@ function* saveLog(action) {
     try {
         const options = {
             method: 'POST',
-            body: JSON.stringify({ action }),
+            body: JSON.stringify({ action: action.action }),
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
@@ -41,7 +41,7 @@ function* saveLog(action) {
 
         const res = yield call(fetch, 'v1/logger', options)
         const log = yield call([res, "json"])
-        yield put(addLog(log))
+        yield put(addLogSuccess(log))
     } catch (e) {
         yield put(collectionitemsFailure(e.message))
     }

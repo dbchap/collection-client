@@ -17,10 +17,10 @@ export const COLLECTIONITEMS_DEFAULT_STATE = {
 export default function collectionitems(state = COLLECTIONITEMS_DEFAULT_STATE, action) {
     switch (action.type) {
         case LOADED_COLLECTIONITEMS:
-            return { ...state, items: action.collectionitems, loading: false }
+            return { ...state, items: action.collectionitems, loading: false, error:false }
 
         case FETCH_COLLECTIONITEMS: {
-            return { ...state, loading: true }
+            return { ...state, error:false, loading: true }
         }
 
         case ADD_COLLECTIONITEM:

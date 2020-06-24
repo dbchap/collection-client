@@ -10,7 +10,7 @@ export const LOGS_DEFAULT_STATE = {
     loading: false,
     saving: false,
     error: '',
-    items: []
+    logs: []
 }
 
 export default function logs(state = LOGS_DEFAULT_STATE, action) {
@@ -28,7 +28,7 @@ export default function logs(state = LOGS_DEFAULT_STATE, action) {
         case ADD_LOG_SUCCESS:
             return {
                 ...state,
-                items: [action.item, ...state.items],
+                logs: [action.item, ...state.logs],
                 saving: false
             }
 

@@ -1,13 +1,14 @@
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-
+import { connect } from 'react-redux';
 import CustomButton from '../components/custom-button/custom-button.component';
 import FormInput from '../components/form-input/form-input.component';
 import FormSelect from '../components/form-select/form-select.component';
 import ItemList from '../components/item-list/item-list.component';
 import Title from '../components/title/title.component';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux';
 import { addCollectionitem } from '../store/actions/collectionitems';
+import { addLog } from '../store/actions/logger';
+
 
 const columns = [0, 1];
 
@@ -38,11 +39,13 @@ class Collections extends React.Component {
             return;
         }
         this.props.addCollectionitem(this.state.itemName, this.state.selectedColumn);
+        this.props.addLog('Added item ' + this.state.itemName + ' in column ' + (+this.state.selectedColumn + 1));
     }
 
     render() {
         return (
             <div>
+                {this.props.error ? <div style={{color:'#fff'}}>Error fetching collection items</div> : null}
                 <Title
                     style={{ marginBottom: '10px' }}
                     label="ADD AN ITEM" />
@@ -67,12 +70,12 @@ class Collections extends React.Component {
                             style={{ marginTop: '8vw' }}
                             onClick={this.addCollectionitem}>
                             ADD ITEM
-              </CustomButton>
+                        </CustomButton>
 
                         <div style={{ marginTop: '4vw' }}>
                             <div style={{ color: '#fff', fontWeight: 'bold' }}>
                                 SEARCH AN ITEM
-                </div>
+                        </div>
                             <FormInput
                                 name="searchTerm"
                                 type="text"
@@ -116,7 +119,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    addCollectionitem
+    addCollectionitem,
+    addLog
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collections);

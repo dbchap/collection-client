@@ -4,6 +4,7 @@ import * as styles from './item.module.css';
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { deleteCollectionitem } from '../../store/actions/collectionitems';
+import { addLog } from '../../store/actions/logger';
 import { connect } from 'react-redux';
 
 
@@ -11,6 +12,7 @@ class Item extends React.Component {
 
     handleRemove = (e) => {
         this.props.deleteCollectionitem(this.props._id);
+        this.props.addLog('Deleted item ' + this.props.label);
     }
 
     render() {
@@ -29,7 +31,8 @@ class Item extends React.Component {
 }
 
 const mapDispatchToProps = {
-    deleteCollectionitem
+    deleteCollectionitem,
+    addLog
 }
 
 export default connect(null, mapDispatchToProps)(Item);
