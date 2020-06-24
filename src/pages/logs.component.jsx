@@ -7,7 +7,7 @@ class Logs extends React.Component {
             <div style={{ marginTop: '1vw' }}>
                 {this.props.error ? <div style={{color:'#fff'}}>Error fetching logs</div> : null}
                 {this.props.logs.length ?
-                this.props.logs.map((log, logIdx) =>
+                this.props.logs.filter((log,logIdx) => logIdx < 10).map((log, logIdx) =>
                 <div style={{ padding:'1vw', backgroundColor: logIdx % 2 === 0 ? '#f2f3f4' : '#bcc0c7' }}>{log.action}</div>
                 ) : 'No logs yet!'}
             </div>
